@@ -14,6 +14,7 @@
 
             return command switch
             {
+                "PLACE" => new PlaceCommand(commandArguments),
                 _ => throw new InvalidOperationException("Invalid command"),
             };
         }

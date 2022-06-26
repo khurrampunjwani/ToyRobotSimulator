@@ -16,6 +16,7 @@
             {
                 "PLACE" => new PlaceCommand(commandArguments),
                 "REPORT" => new ReportCommand(),
+                "RIGHT" => new RightCommand(),
                 "LEFT" => new LeftCommand(),
                 _ => throw new InvalidOperationException("Invalid command"),
             };

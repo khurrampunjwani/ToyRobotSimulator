@@ -2,4 +2,30 @@
 [![Lint Code Base](https://github.com/khurrampunjwani/ToyRobotSimulator/actions/workflows/super-linter.yml/badge.svg)](https://github.com/khurrampunjwani/ToyRobotSimulator/actions/workflows/super-linter.yml)
 
 # ToyRobotSimulator
-C# Toy Robot Simulator
+The project simulates a toy robot moving on a 6 x 6 square tabletop using a console application developed with .NET 6, C# 10 and XUnit.
+
+## Table of contents
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Features](#features)
+
+## Technologies
+Project is created with:
+* .NET version: 6
+	
+## Setup
+To run this project, install it locally using dotnet cli:
+
+```
+$ cd ../src
+$ dotnet build
+```
+
+## Features
+It can read the following commands:
+
+- PLACE X, Y, DIRECTION
+- MOVE
+- LEFT
+- RIGHT
+- REPORT

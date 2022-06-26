@@ -25,4 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="RobotCommands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RobotCommands\" />
+  </ItemGroup>
 </Project>

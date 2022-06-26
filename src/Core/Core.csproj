@@ -7,4 +7,10 @@
     <RootNamespace>ToyRobotSimulator.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="RobotCommands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RobotCommands\" />
+  </ItemGroup>
 </Project>

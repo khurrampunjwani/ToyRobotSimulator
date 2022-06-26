@@ -19,10 +19,10 @@
             if (!int.TryParse(commandArguments[Y_ARGUMENT_POSITION], out int y))
                 throw new ArgumentException($"Invalid Y value {y}");
 
-            if (x <= 0)
+            if (x < 0)
                 throw new ArgumentException($"Invalid X value {x}");
 
-            if (y <= 0)
+            if (y < 0)
                 throw new ArgumentException($"Invalid Y value {y}");
 
             Position = new Position(x, y);

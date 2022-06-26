@@ -15,6 +15,7 @@
             return command switch
             {
                 "PLACE" => new PlaceCommand(commandArguments),
+                "REPORT" => new ReportCommand(),
                 _ => throw new InvalidOperationException("Invalid command"),
             };
         }

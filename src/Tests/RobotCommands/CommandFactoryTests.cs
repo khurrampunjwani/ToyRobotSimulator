@@ -3,7 +3,6 @@ using ToyRobotSimulator.Core.RobotCommands;
 
 namespace ToyRobotSimulator.Tests
 {
-    
     public class CommandFactoryTests
     {
         [Fact]

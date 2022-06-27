@@ -2,18 +2,24 @@
 {
     public class LeftCommand : ICommand
     {
-        public void Execute(ToyRobot toyRobot)
+        public void Execute(TableTop tableTop)
         {
-            if (toyRobot is null || toyRobot.Position is null)
+            var toyRobot = tableTop.ToyRobot;
+
+            if (toyRobot is null || toyRobot.Direction is null)
                 throw new InvalidOperationException("Robot is null");
 
-            if (toyRobot.Position.X <= 0)
-                throw new InvalidOperationException("No space on the left");
+            var directions = (int[])Enum.GetValues(typeof(Direction));
 
-            toyRobot.Position = toyRobot.Position with
-            {
-                X = toyRobot.Position.X - 1
-            };
+            var currentDirectionIndex = (int)toyRobot.Direction;
+            var newDirectionIndex = (currentDirectionIndex - 1) % directions.Length;
+
+            if (newDirectionIndex < 0)
+                newDirectionIndex = directions.Length - 1;
+
+            var newDirection = Enum.Parse<Direction>(newDirectionIndex.ToString());
+
+            toyRobot.Direction = newDirection;
         }
     }
 }

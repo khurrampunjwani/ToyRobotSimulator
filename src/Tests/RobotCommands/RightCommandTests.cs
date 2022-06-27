@@ -2,28 +2,75 @@
 
 namespace ToyRobotSimulator.Tests
 {
-
     public class RightCommandTests
     {
-        [Theory]
-        [InlineData(1, 1)]
-        [InlineData(2, 2)]
-        [InlineData(9, 3)]
-        public void Create_ValidX_TurnsRight(int x, int y)
-        {
-            var command = new string[] { "PLACE", x.ToString(), y.ToString() };
+        private readonly TableTop _tableTop = new();
 
-            var toyRobot = new ToyRobot();
+
+        [Fact]
+        public void Turn_RightWithoutPlacing_ThrowsInvalidOperationException()
+        {
+            var right = CommandFactory.Create(new string[] { "RIGHT" });
+            var rightExecution = () => right.Execute(_tableTop);
+
+            Assert.Throws<InvalidOperationException>(rightExecution);
+        }
+
+
+        [Fact]
+        public void Turn_RightWhiteFacingNorth_TurnsEast()
+        {
+            var right = Create(1, 3, Direction.North);
+            right.Execute(_tableTop);
+
+            Assert.Equal(Direction.East, _tableTop.ToyRobot.Direction);
+        }
+
+
+        [Fact]
+        public void Turn_RightWhiteFacingEast_TurnsSouth()
+        {
+            var right = Create(1, 3, Direction.East);
+            right.Execute(_tableTop);
+
+            Assert.Equal(Direction.South, _tableTop.ToyRobot.Direction);
+        }
+
+
+        [Fact]
+        public void Turn_RightWhiteFacingSouth_TurnsWest()
+        {
+            var right = Create(1, 3, Direction.South);
+            right.Execute(_tableTop);
+
+            Assert.Equal(Direction.West, _tableTop.ToyRobot.Direction);
+        }
+
+
+        [Fact]
+        public void Turn_RightWhiteFacingWest_TurnsNorth()
+        {
+            var right = Create(1, 3, Direction.West);
+            right.Execute(_tableTop);
+
+            Assert.Equal(Direction.North, _tableTop.ToyRobot.Direction);
+        }
+
+
+        private ICommand Create(int x, int y, Direction direction)
+        {
+            var command = new string[]
+            {
+                "PLACE",
+                x.ToString(),
+                y.ToString(),
+                direction.ToString()
+            };
 
             var place = CommandFactory.Create(command);
-            place.Execute(toyRobot);
+            place.Execute(_tableTop);
 
-            var right = CommandFactory.Create(new string[] { "RIGHT" });
-            right.Execute(toyRobot);
-
-            Assert.Equal(x + 1, toyRobot?.Position?.X);
-            Assert.Equal(y, toyRobot?.Position?.Y);
-
+            return CommandFactory.Create(new string[] { "RIGHT" });
         }
     }
 }

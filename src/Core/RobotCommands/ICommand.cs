@@ -2,7 +2,7 @@
 {
     public interface ICommand
     {
-        public void Execute(ToyRobot toyRobot);
+        public void Execute(TableTop tableTop);
     }
 }
 

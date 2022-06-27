@@ -1,5 +1,8 @@
+#!/bin/bash
+
 docker run \
     -e RUN_LOCAL=true \
     -e USE_FIND_ALGORITHM=true \
-    -v /src:/tmp/lint \
+    -e LOG_LEVEL=WARN \
+    -v "$PWD":/tmp/lint \
     github/super-linter

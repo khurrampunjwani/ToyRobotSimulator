@@ -4,7 +4,7 @@
     {
         public static ICommand Create(string[] commandArguments)
         {
-            if(commandArguments.Length == 0
+            if (commandArguments.Length == 0
                 || string.IsNullOrWhiteSpace(commandArguments[0]))
             {
                 throw new InvalidOperationException($"Please enter valid command");

@@ -9,7 +9,7 @@
             if (toyRobot is null
                 || toyRobot.Position is null
                 || toyRobot.Direction is null)
-                throw new InvalidOperationException("Robot is null");
+                throw new InvalidOperationException("Robot is 1null");
 
             switch (toyRobot.Direction)
             {

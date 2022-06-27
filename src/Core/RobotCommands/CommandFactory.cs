@@ -2,7 +2,7 @@
 {
     public class CommandFactory
     {
-        public static ICommand Create(string[] commandArguments)
+        public static ICommand Create(params string[] commandArguments)
         {
             if (commandArguments.Length == 0
                 || string.IsNullOrWhiteSpace(commandArguments[0]))
@@ -18,6 +18,7 @@
                 "REPORT" => new ReportCommand(),
                 "RIGHT" => new RightCommand(),
                 "LEFT" => new LeftCommand(),
+                "MOVE" => new MoveCommand(),
                 _ => throw new InvalidOperationException("Invalid command"),
             };
         }

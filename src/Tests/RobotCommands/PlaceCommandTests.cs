@@ -9,50 +9,36 @@ namespace ToyRobotSimulator.Tests
         [Fact]
         public void Create_EmptyXCommand_ThrowsArgumentException()
         {
-            var command = new string[]
-            {
+            var result = () => CommandFactory.Create(
                 "PLACE",
                 string.Empty,
                 "P",
-                Direction.North.ToString()
-            };
-            var actual = () => CommandFactory.Create(command);
+                Direction.North.ToString());
 
-            Assert.Throws<ArgumentException>(actual);
+            Assert.Throws<ArgumentException>(result);
         }
 
 
         [Fact]
-        public void Create_EmptyYCommand_ArgumentException()
+        public void Create_EmptyYCommand_ThrowsArgumentException()
         {
-            var command = new string[]
-            {
+            var result = () => CommandFactory.Create(
                 "PLACE",
                 "1",
                 string.Empty,
-                Direction.South.ToString()
-            };
+                Direction.South.ToString());
 
-            var actual = () => CommandFactory.Create(command);
-
-            Assert.Throws<ArgumentException>(actual);
+            Assert.Throws<ArgumentException>(result);
         }
 
 
         [Fact]
-        public void Create_EmptyDirectionCommand_ArgumentException()
+        public void Create_EmptyDirectionCommandBeforePlacing_ThrowsInvalidOperationException()
         {
-            var command = new string[]
-            {
-                "PLACE",
-                "1",
-                "2",
-                string.Empty
-            };
+            var place = CommandHelper.CreatePlaceCommand(1, 2);
+            var result = () => place.Execute(_tableTop);
 
-            var actual = () => CommandFactory.Create(command);
-
-            Assert.Throws<ArgumentException>(actual);
+            Assert.Throws<InvalidOperationException>(result);
         }
 
 
@@ -62,17 +48,13 @@ namespace ToyRobotSimulator.Tests
         [InlineData(2, -3)]
         public void Create_NegativeXY_ReturnsCommand(int x, int y)
         {
-            var command = new string[]
-            {
-                "PLACE",
-                x.ToString(),
-                y.ToString(),
-                Direction.East.ToString()
-            };
+            var result = () => CommandHelper.CreateAndExecutePlaceCommand(
+                _tableTop,
+                x,
+                y,
+                Direction.East);
 
-            var actual = () => CommandFactory.Create(command);
-
-            Assert.Throws<ArgumentException>(actual);
+            Assert.Throws<ArgumentException>(result);
         }
 
 
@@ -82,16 +64,11 @@ namespace ToyRobotSimulator.Tests
         [InlineData(2, 3)]
         public void Create_ValidXY_ReturnsCommand(int x, int y)
         {
-            var command = new string[]
-            {
-                "PLACE",
-                x.ToString(),
-                y.ToString(),
-                Direction.West.ToString()
-            };
-
-            var place = CommandFactory.Create(command);
-            place.Execute(_tableTop);
+            CommandHelper.CreateAndExecutePlaceCommand(
+                _tableTop,
+                x,
+                y,
+                Direction.West);
 
             Assert.Equal(x, _tableTop.ToyRobot.Position?.X);
             Assert.Equal(y, _tableTop.ToyRobot.Position?.Y);

@@ -8,7 +8,7 @@
         private const int DIRECTION_ARGUMENT_POSITION = 3;
 
         private readonly Position _position;
-        private readonly Direction _direction;
+        private readonly Direction? _direction;
 
         public PlaceCommand(string[] commandArguments)
         {
@@ -21,9 +21,16 @@
             if (!int.TryParse(commandArguments[Y_ARGUMENT_POSITION], out int y))
                 throw new ArgumentException($"Invalid Y value {y}");
 
-            if (!Enum.TryParse(commandArguments[DIRECTION_ARGUMENT_POSITION], out _direction))
-                throw new ArgumentException($"Invalid direction " +
-                    $"{commandArguments[DIRECTION_ARGUMENT_POSITION]}");
+            string intendedDirection = commandArguments[DIRECTION_ARGUMENT_POSITION];
+
+            if (!string.IsNullOrWhiteSpace(intendedDirection))
+            {
+                if (!Enum.TryParse<Direction>(intendedDirection, out var direction))
+                    throw new ArgumentException($"Invalid direction " +
+                        $"{commandArguments[DIRECTION_ARGUMENT_POSITION]}");
+                else
+                    _direction = direction;
+            }
 
             if (x < 0)
                 throw new ArgumentException($"Invalid X value {x}");
@@ -38,8 +45,14 @@
         public void Execute(TableTop tableTop)
         {
             var toyRobot = tableTop.ToyRobot;
+
+            if (!toyRobot.IsPlaced && _direction is null)
+                throw new InvalidOperationException("Robot needs direction for initial placement");
+
             toyRobot.Position = _position;
-            toyRobot.Direction = _direction;
+
+            if(_direction is not null)
+                toyRobot.Direction = _direction;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using ToyRobotSimulator.Core.RobotCommands;
-
-namespace ToyRobotSimulator.Tests
+﻿namespace ToyRobotSimulator.Tests
 {
     public class CommandFactoryTests
     {

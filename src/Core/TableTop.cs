@@ -2,8 +2,8 @@
 {
     public class TableTop
     {
-        public int Rows { get; set; }
-        public int Columns { get; set; }
+        public int Rows { get; private set; } = 5;
+        public int Columns { get; private set; } = 5;
 
         public ToyRobot ToyRobot { get; private set; } = new ToyRobot();
 

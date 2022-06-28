@@ -10,11 +10,9 @@ namespace ToyRobotSimulator.Core.RobotCommands
         private const string RIGHT_COMMAND = "RIGHT";
 
         public static ICommand CreatePlaceCommand(int x, int y, Direction? direction = null) =>
-            CommandFactory.Create(
-                PLACE_COMMAND,
-                x.ToString(),
-                y.ToString(),
-                $"{direction}");
+            direction.HasValue
+            ? CommandFactory.Create(PLACE_COMMAND, $"{x},{y},{direction}")
+            : CommandFactory.Create(PLACE_COMMAND, $"{x},{y}");
 
 
         public static ICommand CreateReportCommand() => CommandFactory.Create(REPORT_COMMAND);
@@ -30,11 +28,7 @@ namespace ToyRobotSimulator.Core.RobotCommands
 
 
         public static void CreateAndExecutePlaceCommand(TableTop tableTop, int x, int y, Direction? direction = null) =>
-            CommandFactory.Create(
-                PLACE_COMMAND,
-                x.ToString(),
-                y.ToString(),
-                $"{direction}")
+            CreatePlaceCommand(x, y, direction)
             .Execute(tableTop);
 
 

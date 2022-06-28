@@ -108,7 +108,6 @@
             CommandHelper.CreateAndExecuteLeftCommand(_tableTop);
             CommandHelper.CreateAndExecuteMoveCommand(_tableTop);
             CommandHelper.CreateAndExecutePlaceCommand(_tableTop, 3, 1);
-            Console.WriteLine(_tableTop.ToyRobot?.Direction);
             CommandHelper.CreateAndExecuteMoveCommand(_tableTop);
 
             Assert.Equal(3, _tableTop.ToyRobot?.Position?.X);

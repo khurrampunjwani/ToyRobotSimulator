@@ -10,16 +10,16 @@
                 throw new InvalidOperationException($"Please enter valid command");
             }
 
-            var command = commandArguments[0];
+            var command = commandArguments[0].ToUpper();
 
             return command switch
             {
-                "PLACE" => new PlaceCommand(commandArguments),
+                "PLACE" => new PlaceCommand(commandArguments[1]),
                 "REPORT" => new ReportCommand(),
                 "RIGHT" => new RightCommand(),
                 "LEFT" => new LeftCommand(),
                 "MOVE" => new MoveCommand(),
-                _ => throw new InvalidOperationException("Invalid command"),
+                _ => throw new InvalidOperationException($"Invalid command {command}"),
             };
         }
     }
